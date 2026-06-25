@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mr. Nhật Anh EduPro - Flawless Titan V46</title>
+    <title>Mr. Nhật Anh EduPro - Quantum Core V48</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -48,7 +48,7 @@
 
 <div id="app" class="h-screen w-screen flex flex-col relative" :class="{'cheat-danger-active': cheatAlertTriggered, 'time-warning': isTimeWarning}">
     
-    <!-- HỆ THỐNG TOASTS CAO CẤP -->
+    <!-- HỆ THỐNG TOASTS -->
     <div class="fixed top-4 right-4 z-[99999] flex flex-col gap-2 w-full max-w-sm pointer-events-none px-4 sm:px-0">
         <div v-for="t in toasts" :key="t.id" class="pointer-events-auto w-full p-4 rounded-2xl shadow-2xl border flex items-start gap-3 transform transition-all duration-300 glass-panel"
              :class="{'border-emerald-200 bg-emerald-50/95 text-emerald-900': t.type==='success', 'border-red-200 bg-red-50/95 text-red-900': t.type==='error', 'border-amber-200 bg-amber-50/95 text-amber-900': t.type==='warning', 'border-blue-200 bg-blue-50/95 text-blue-900': t.type==='info'}">
@@ -105,9 +105,9 @@
         </div>
     </div>
 
-    <!-- MODAL REVIEW (ĐÃ FIX LỖI KHÔNG HIỂN THỊ) -->
+    <!-- MODAL REVIEW CHI TIẾT BÀI THI -->
     <transition name="fade">
-        <div v-if="reviewModal" class="fixed inset-0 z-[99995] flex items-center justify-center p-2 sm:p-4 bg-slate-900/80 backdrop-blur-sm">
+        <div v-if="reviewModal" class="fixed inset-0 z-[500] flex items-center justify-center p-2 sm:p-4 bg-slate-900/80 backdrop-blur-sm">
             <div id="print-area" class="bg-white rounded-3xl shadow-2xl w-full max-w-7xl h-[95vh] flex flex-col lg:flex-row overflow-hidden relative border border-slate-700">
                 <button @click="closeReview" class="no-print absolute top-3 right-3 z-40 w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center transition shadow-lg"><i class="fa-solid fa-xmark text-lg"></i></button>
                 
@@ -126,6 +126,7 @@
                                 <span class="block text-4xl font-black text-emerald-400">{{ reviewData?.score?.score }} <span class="text-sm text-slate-500">/ {{ reviewData?.score?.maxScore || 10 }}</span></span>
                                 <span class="text-[11px] text-slate-300 font-bold mt-1 block">Đúng {{ reviewData?.score?.rawScore }}/{{ reviewData?.score?.totalGradeable }} Câu</span>
                             </div>
+                            <button @click="printReview" class="no-print bg-indigo-600 hover:bg-indigo-500 text-white p-4 rounded-2xl shadow-lg transition active:scale-95 shrink-0" title="In bệnh án (PDF)"><i class="fa-solid fa-print text-2xl"></i></button>
                         </div>
                     </div>
 
@@ -224,10 +225,10 @@
     <div v-if="loading" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 text-white z-[9999]">
         <i class="fa-solid fa-gem fa-spin text-6xl text-emerald-400 mb-6"></i>
         <h2 class="text-3xl font-black mb-2 tracking-tight">MR. NHẬT ANH EDUPRO</h2>
-        <p class="font-bold tracking-widest uppercase text-xs text-slate-400">Đang khởi chạy lõi dữ liệu V46...</p>
+        <p class="font-bold tracking-widest uppercase text-xs text-slate-400">Đang khởi chạy Quantum Core V48...</p>
     </div>
 
-    <!-- MAIN APP LÕI GIAO DIỆN (ĐÃ TÁI CẤU TRÚC V-SHOW) -->
+    <!-- MAIN APP LÕI GIAO DIỆN -->
     <div v-show="!loading" class="flex-1 flex h-full overflow-hidden relative">
         
         <!-- MOBILE HEADER -->
@@ -242,7 +243,7 @@
             <button @click="showMobileSidebar = false" class="md:hidden absolute top-4 right-4 text-white/50 hover:text-white transition"><i class="fa-solid fa-xmark text-2xl"></i></button>
             <div class="p-6 flex items-center space-x-4 border-b border-slate-800 bg-slate-950/40 mt-10 md:mt-0">
                 <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-gradient-to-br from-emerald-400 to-teal-600 shadow-lg text-white text-2xl border border-teal-400/20"><i class="fa-solid fa-gem"></i></div>
-                <div><span class="block text-xl font-black tracking-widest text-white">MR. NHẬT ANH</span><span class="block text-[10px] font-bold text-teal-400 uppercase tracking-wider">Premium V46</span></div>
+                <div><span class="block text-xl font-black tracking-widest text-white">MR. NHẬT ANH</span><span class="block text-[10px] font-bold text-teal-400 uppercase tracking-wider">Quantum V48</span></div>
             </div>
             
             <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto custom-scrollbar">
@@ -281,17 +282,17 @@
                     </div>
                     <div class="truncate max-w-[120px]"><p class="text-sm font-black text-white truncate">{{ currentUser?.name }}</p><p class="text-[10px] text-slate-400 uppercase font-bold">{{ currentUser?.username }}</p></div>
                 </div>
-                <button @click="handleLogout" class="w-10 h-10 rounded-xl bg-slate-900 hover:bg-red-500 text-slate-400 hover:text-white flex items-center justify-center transition shadow active:scale-95"><i class="fa-solid fa-power-off"></i></button>
+                <button @click="handleLogout" class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 hover:bg-red-500 hover:text-white text-slate-400 flex items-center justify-center transition shadow active:scale-95"><i class="fa-solid fa-power-off"></i></button>
             </div>
         </aside>
 
-        <!-- KHU VỰC CUỘN CHÍNH (ĐÃ CÔ LẬP V-SHOW ĐỂ KHÔNG SẬP DOM) -->
+        <!-- KHU VỰC CUỘN CHÍNH -->
         <main class="flex-1 overflow-y-auto relative w-full bg-slate-50 custom-scrollbar" id="main-scroll">
             
             <!-- PORTAL ĐĂNG NHẬP -->
             <div v-if="!currentUser" class="min-h-full flex flex-col items-center justify-center bg-slate-950 p-4 relative">
                 <div class="w-full max-w-md glass-panel p-8 rounded-3xl shadow-2xl border-t-4 border-indigo-500 z-10">
-                    <div class="text-center mb-8"><h1 class="text-2xl font-black text-slate-900 tracking-tight uppercase">MR. NHẬT ANH EDUPRO</h1><p class="text-xs text-indigo-600 font-bold mt-1">Hệ Thống Đóng Gói Khảo Thí</p></div>
+                    <div class="text-center mb-8"><h1 class="text-2xl font-black text-slate-900 tracking-tight uppercase">MR. NHẬT ANH EDUPRO</h1><p class="text-xs text-indigo-600 font-bold mt-1">Hệ Thống Khảo Thí V48 (New Cloud)</p></div>
                     
                     <div v-if="!hasAdminAccount">
                         <div class="bg-amber-50 border-2 border-amber-400 p-5 rounded-2xl mb-6 text-center shadow-inner">
@@ -336,7 +337,7 @@
                                 <input v-model="regData.password" :type="showPassword ? 'text' : 'password'" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-teal-500 outline-none" placeholder="Thiết lập mật khẩu">
                                 <i class="fa-solid absolute right-4 top-4 text-slate-400 cursor-pointer hover:text-teal-600" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'" @click="showPassword = !showPassword"></i>
                             </div>
-                            <button @click="handleRegisterStudent" class="w-full text-white font-black py-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-sm tracking-wider shadow active:scale-95">XÁC NHẬN ĐĂNG KÝ HỌC VIÊN</button>
+                            <button @click="handleRegisterStudent" class="w-full text-white font-black py-4 rounded-xl bg-teal-600 hover:bg-teal-700 text-sm tracking-wider shadow active:scale-95">XÁC NHẬN ĐĂNG KÝ</button>
                             <button @click="authMode = 'login'" class="w-full text-slate-400 hover:text-slate-600 font-bold text-xs py-2 block text-center mt-2">Quay lại Đăng nhập</button>
                         </div>
 
@@ -349,12 +350,12 @@
                             </div>
 
                             <input v-model="regData.name" type="text" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Tên hiển thị Giáo viên">
-                            <input v-model="regData.username" type="text" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Tên tài khoản (UID viết liền không dấu)">
+                            <input v-model="regData.username" type="text" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Tên tài khoản (UID viết liền)">
                             <div class="relative">
                                 <input v-model="regData.password" :type="showPassword ? 'text' : 'password'" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Mật khẩu đăng nhập">
                                 <i class="fa-solid absolute right-4 top-4 text-slate-400 cursor-pointer hover:text-indigo-600" :class="showPassword ? 'fa-eye-slash' : 'fa-eye'" @click="showPassword = !showPassword"></i>
                             </div>
-                            <button @click="handleRegisterTeacher" class="w-full text-white font-black py-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-sm tracking-wider shadow active:scale-95">KÍCH HOẠT TÀI KHOẢN GIÁO VIÊN</button>
+                            <button @click="handleRegisterTeacher" class="w-full text-white font-black py-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-sm tracking-wider shadow active:scale-95">KÍCH HOẠT TÀI KHOẢN</button>
                             <button @click="authMode = 'login'; regTeacherCode='';" class="w-full text-slate-400 hover:text-slate-600 font-bold text-xs py-2 block text-center mt-2">Quay lại Đăng nhập</button>
                         </div>
                     </div>
@@ -367,7 +368,7 @@
                 <!-- ================= VÙNG QUẢN TRỊ GIÁO VIÊN ================= -->
                 <div v-if="currentUser.role === 'admin' || currentUser.role === 'teacher'" class="p-4 md:p-8 max-w-7xl mx-auto w-full pb-24 h-full">
                     
-                    <!-- BẢNG TỔNG QUAN SIÊU ĐẸP ĐÃ SỬA LỖI TRẮNG TRANG -->
+                    <!-- BẢNG TỔNG QUAN SIÊU ĐẸP -->
                     <div v-show="adminTab === 'dashboard'" class="animate-fade h-full">
                         <div class="bg-gradient-to-r from-indigo-900 to-slate-800 p-8 md:p-10 rounded-3xl shadow-xl text-white mb-8 relative overflow-hidden">
                             <i class="fa-solid fa-gem text-9xl absolute -right-10 -bottom-10 opacity-10"></i>
@@ -452,7 +453,7 @@
                                 <tbody class="text-sm divide-y divide-slate-100">
                                     <tr v-for="s in filteredScoresByQuiz" :key="s.id" class="hover:bg-indigo-50/30 transition">
                                         <td class="py-4 px-5 text-xs text-slate-500 font-medium">{{ s.time }}</td>
-                                        <td class="py-4 px-5 font-black text-slate-800">{{ s.studentName }} <span class="text-[10px] block text-slate-400 font-mono mt-0.5">ID: {{ s.studentUsername }}</span></td>
+                                        <td class="py-4 px-5 font-black text-slate-800">{{ s.studentName }} <span class="text-[10px] block text-slate-400 font-mono mt-0.5">UID: {{ s.studentUsername }}</span></td>
                                         <td class="py-4 px-5 text-center font-bold" :class="s.cheatCount > 0 ? 'text-red-500 bg-red-50/40 rounded-lg' : 'text-slate-300'">{{ s.cheatCount || 0 }} lần</td>
                                         <td class="py-4 px-5 text-center font-black text-indigo-700 bg-indigo-50/30 rounded-lg"><span class="text-xl font-black">{{ s.score }}</span><span class="text-[10px] text-slate-500 font-medium block mt-0.5">Đúng {{ s.rawScore }}/{{ s.totalGradeable }}</span></td>
                                         <td class="py-4 px-5 text-center">
@@ -818,7 +819,7 @@
                     </div>
                 </div>
 
-                <!-- ================= VÙNG LÀM BÀI HỌC SINH (CÔ LẬP HOÀN TOÀN TRÁNH VỠ DOM) ================= -->
+                <!-- ================= VÙNG LÀM BÀI HỌC SINH (ĐÃ FIX - CÔ LẬP HOÀN TOÀN) ================= -->
                 <div v-else-if="currentUser.role === 'student'" class="p-2 sm:p-4 lg:p-6 max-w-[1420px] mx-auto pb-24 h-full flex flex-col relative w-full">
                     
                     <!-- LỚP HỌC CỦA EM -->
@@ -844,6 +845,7 @@
                                     <span v-else class="bg-amber-50 text-amber-700 px-4 py-2 rounded-xl border border-amber-200 font-black text-xs shadow-sm animate-pulse flex items-center w-fit"><i class="fa-solid fa-hourglass-half mr-1.5 text-sm"></i> Chờ thầy cô duyệt</span>
                                 </div>
                             </div>
+                            <!-- Empty State -->
                             <div v-if="classesList.filter(c => (c.students||[]).includes(currentUser.username) || (c.pending||[]).includes(currentUser.username)).length === 0" class="md:col-span-2 lg:col-span-3 p-12 bg-slate-50 border-2 border-dashed border-slate-300 rounded-3xl text-center">
                                 <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm"><i class="fa-solid fa-school-circle-xmark text-4xl text-slate-300"></i></div>
                                 <p class="text-slate-500 font-bold">Em chưa tham gia vào lớp học nào của trung tâm.</p>
@@ -1062,7 +1064,7 @@
                                                         <div v-else-if="qItem.question.type === 'sắp xếp'"><input v-model="studentAnswers[qItem.originalIndex]" type="text" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl outline-none text-xl font-mono tracking-widest font-black text-center focus:border-blue-500 shadow-inner"></div>
                                                         <div v-else-if="qItem.question.type === 'tfng' || qItem.question.type === 'ynng'" class="flex flex-wrap gap-2.5"><label v-for="opt in (qItem.question.type === 'tfng' ? ['True', 'False', 'Not Given'] : ['Yes', 'No', 'Not Given'])" :key="opt" class="flex-1 text-center py-3.5 border-2 rounded-xl text-xs font-black cursor-pointer shadow-sm transition-colors" :class="[studentAnswers[qItem.originalIndex] === opt ? 'bg-indigo-600 border-indigo-700 text-white' : 'bg-white border-slate-200 text-slate-600']"><input type="radio" :name="'qm'+qItem.originalIndex" :value="opt" v-model="studentAnswers[qItem.originalIndex]" class="hidden">{{ opt }}</label></div>
                                                         <div v-else-if="qItem.question.type === 'matching headings' || qItem.question.type === 'matching information' || qItem.question.type === 'map labeling'" class="w-full"><select v-model="studentAnswers[qItem.originalIndex]" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-xl font-bold text-sm text-slate-800 outline-none focus:border-blue-500 shadow-inner"><option value="">-- Chọn đáp án khớp nối --</option><option v-for="(opt, oIdx) in qItem.question.options" :key="oIdx" :value="getOptionValue(opt, qItem.question.type, oIdx)">{{ qItem.question.type === 'map labeling' ? getOptionLetter(opt) : opt }}</option></select></div>
-                                                        <div v-else><textarea v-if="qItem.question.type === 'tự luận'" v-model="studentAnswers[qItem.originalIndex]" rows="3" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-xl outline-none text-sm font-medium focus:border-blue-500 shadow-inner leading-relaxed" placeholder="Soạn câu trả lời..."></textarea><input v-else v-model="studentAnswers[qItem.originalIndex]" type="text" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-xl outline-none font-bold text-sm focus:border-blue-500 shadow-inner" placeholder="Điền đáp án chính xác..."></div>
+                                                        <div v-else><textarea v-if="qItem.question.type === 'tự luận'" v-model="studentAnswers[qItem.originalIndex]" rows="3" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl outline-none text-sm font-medium focus:border-blue-500 shadow-inner leading-relaxed" placeholder="Soạn câu trả lời..."></textarea><input v-else v-model="studentAnswers[qItem.originalIndex]" type="text" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-xl outline-none font-bold text-sm focus:border-blue-500 shadow-inner" placeholder="Điền đáp án chính xác..."></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1087,6 +1089,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </main>
     </div>
@@ -1097,14 +1100,14 @@
     import { getFirestore, collection, addDoc, getDocs, doc, setDoc, deleteDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
     import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-    // CẤU HÌNH LIÊN KẾT GỐC CHUẨN XÁC CỦA MR NHẬT ANH ĐUÔI C07904
+    // CẤU HÌNH LIÊN KẾT GỐC CHUẨN XÁC CỦA THẦY NHẬT ANH 100%
     const firebaseConfig = {
-        apiKey: "AIzaSyAooKMHy-CELa20HyxI_X545F204khuxho",
-        authDomain: "homework-1607c.firebaseapp.com",
-        projectId: "homework-1607c",
-        storageBucket: "homework-1607c.firebasestorage.app",
-        messagingSenderId: "541270304589",
-        appId: "1:541270304589:web:5101b5f4c6f9ddf1c07904"
+        apiKey: "AIzaSyA25xKOe6eCzhsWHnZtZ3gnWu0RpXUhTJ0",
+        authDomain: "mrnhatanhnewweb.firebaseapp.com",
+        projectId: "mrnhatanhnewweb",
+        storageBucket: "mrnhatanhnewweb.firebasestorage.app",
+        messagingSenderId: "763538843255",
+        appId: "1:763538843255:web:529995a33adbee88f50872"
     };
 
     let app, db, storage;
@@ -1193,34 +1196,31 @@
             }
         },
         watch: {
-            studentAnswers: { deep: true, handler(newVal) { if(this.currentUser?.role === 'student' && this.activeQuiz && !this.quizSubmitted) { localStorage.setItem(`edu_draft_${this.activeQuiz.id}`, JSON.stringify(newVal)); this.autoSaveMsg = 'Đã lưu...'; setTimeout(() => { this.autoSaveMsg = ''; }, 2000); } } },
+            studentAnswers: { deep: true, handler(newVal) { if(this.currentUser?.role === 'student' && this.activeQuiz && !this.quizSubmitted) { localStorage.setItem(`edu_draft_${this.activeQuiz.id}`, JSON.stringify(newVal)); this.autoSaveMsg = 'Đã tự động lưu nháp...'; setTimeout(() => { this.autoSaveMsg = ''; }, 2000); } } },
             parsedQuestions: { deep: true, handler(newVal) { if(this.studioMode && (this.currentUser?.role === 'admin' || this.currentUser?.role === 'teacher')) { localStorage.setItem('edu_teacher_draft_q', JSON.stringify(newVal)); localStorage.setItem('edu_teacher_draft_info', JSON.stringify(this.newQuiz)); } } }
         },
         async mounted() {
             window.addEventListener('resize', () => { this.windowWidth = window.innerWidth; });
             this.setupShortcuts();
             try {
-                const session = localStorage.getItem('edu_v46_session');
+                const session = localStorage.getItem('edu_v48_session');
                 if(session) {
                     this.currentUser = JSON.parse(session);
                     if(this.currentUser.role === 'student') {
-                        // Sửa lỗi kẹt Tab học sinh do LocalStorage cache nhầm
-                        this.studentTab = 'history'; 
-                        this.adminTab = 'dashboard';
+                        this.studentTab = 'history'; this.adminTab = 'dashboard';
                     } else { 
-                        this.adminTab = 'dashboard'; 
-                        this.studentTab = 'history';
+                        this.adminTab = 'dashboard'; this.studentTab = 'history';
                         const tDraft = localStorage.getItem('edu_teacher_draft_q'); 
                         if(tDraft && JSON.parse(tDraft).length > 0) { this.showDraftRecoveryModal = true; } 
                     }
                 }
-                await this.loadData();
             } catch(e) {
-                console.warn('Lỗi bộ nhớ tạm. Làm mới...');
-                localStorage.removeItem('edu_v46_session'); localStorage.removeItem('edu_teacher_draft_q'); localStorage.removeItem('edu_teacher_draft_info');
+                console.warn('Lỗi bộ nhớ đệm. Tiến hành làm mới...');
+                localStorage.removeItem('edu_v48_session'); localStorage.removeItem('edu_teacher_draft_q'); localStorage.removeItem('edu_teacher_draft_info');
             }
 
             try {
+                await this.loadData();
                 const urlParams = new URLSearchParams(window.location.search);
                 const quizParam = urlParams.get('quiz');
                 if(quizParam) { this.joinLinkId = quizParam; this.studentTab = 'join'; }
@@ -1232,7 +1232,7 @@
                 });
 
                 if(this.joinLinkId && this.currentUser && this.currentUser.role === 'student') { this.loadQuiz(); }
-            } catch(e) {} finally { this.loading = false; }
+            } catch(e) { console.error(e); } finally { this.loading = false; }
         },
         methods: {
             async uploadToFirebase(file, folder) {
@@ -1273,7 +1273,6 @@
                 }
             },
 
-            // AUTO-HIGHLIGHT MAGIC DOM
             autoHighlight() {
                 if(this.currentUser?.role === 'student' && this.activeQuiz && !this.quizSubmitted) {
                     const selection = window.getSelection();
@@ -1327,7 +1326,10 @@
                     const qzSnap = await getDocs(collection(db, "quizzes")); this.dbQuizzes = qzSnap.docs.map(d=>d.data());
                     const scSnap = await getDocs(collection(db, "scores")); this.scoresList = scSnap.docs.map(d=> ({ id: d.id, ...d.data() }));
                     const clsSnap = await getDocs(collection(db, "classes")); this.classesList = clsSnap.docs.map(d=>d.data());
-                } catch(e) { this.showToast('Lỗi đồng bộ', 'Không thể kết nối máy chủ.', 'error'); }
+                } catch(e) { 
+                    console.error("Firebase Rule Error:", e.message); 
+                    this.showToast('Lỗi kết nối Firebase', 'Hãy đảm bảo thầy đã tạo Database và mở Rules = true.', 'error'); 
+                }
             },
 
             resetStudio(silent = false) {
@@ -1514,7 +1516,7 @@
                     
                     const sObj = { name: this.regData.name, username: u, password: this.regData.password, role: 'student' };
                     await setDoc(doc(db, "students", u), sObj); this.studentsList.push(sObj); this.currentUser = sObj;
-                    localStorage.setItem('edu_v46_session', JSON.stringify(this.currentUser)); this.regData = { name: '', username: '', password: '' };
+                    localStorage.setItem('edu_v48_session', JSON.stringify(this.currentUser)); this.regData = { name: '', username: '', password: '' };
                     this.showToast('Chào mừng', 'Đăng ký tài khoản học viên thành công.', 'success');
                     if(this.joinLinkId) this.loadQuiz();
                 } catch(e){}
@@ -1526,7 +1528,7 @@
                     if(this.teachersList.some(t => t.username === u) || u === this.setupAdmin.username) return this.showToast('Lỗi', 'Tài khoản UID này đã tồn tại!', 'error');
                     const tObj = { name: this.regData.name, username: u, password: this.regData.password, role: 'teacher' };
                     await setDoc(doc(db, "teachers", u), tObj); this.teachersList.push(tObj); this.currentUser = tObj;
-                    localStorage.setItem('edu_v46_session', JSON.stringify(this.currentUser)); this.regData = { name: '', username: '', password: '' }; this.regTeacherCode = '';
+                    localStorage.setItem('edu_v48_session', JSON.stringify(this.currentUser)); this.regData = { name: '', username: '', password: '' }; this.regTeacherCode = '';
                     this.showToast('Mở khóa thành công', 'Chào mừng thầy đã gia nhập phân hệ quản trị Mr. Nhật Anh EduPro.', 'success');
                 } catch(e){}
             },
@@ -1540,10 +1542,10 @@
                         const s = this.studentsList.find(x => x.username === u && x.password === this.loginPassword);
                         if(s) this.currentUser = s; else return this.showToast('Từ chối', 'Sai thông tin đăng nhập của Học sinh.', 'error');
                     }
-                    if(this.currentUser) { localStorage.setItem('edu_v46_session', JSON.stringify(this.currentUser)); this.showToast('Đăng nhập thành công', `Chào mừng ${this.currentUser.name} trở lại hệ thống!`, 'success'); await this.loadData(); if(this.joinLinkId && this.currentUser.role==='student') this.loadQuiz(); }
+                    if(this.currentUser) { localStorage.setItem('edu_v48_session', JSON.stringify(this.currentUser)); this.showToast('Đăng nhập thành công', `Chào mừng ${this.currentUser.name} trở lại hệ thống!`, 'success'); await this.loadData(); if(this.joinLinkId && this.currentUser.role==='student') this.loadQuiz(); }
                 } catch(e){}
             },
-            handleLogout() { this.currentUser=null; localStorage.removeItem('edu_v46_session'); this.exitQuiz(); this.showToast('Đã đăng xuất', 'Hệ thống đã ngắt kết nối an toàn.', 'info'); },
+            handleLogout() { this.currentUser=null; localStorage.removeItem('edu_v48_session'); this.exitQuiz(); this.showToast('Đã đăng xuất', 'Hệ thống đã ngắt kết nối an toàn.', 'info'); },
 
             processToStudioSafe() {
                 if(!this.newQuiz.title) return this.showToast('Thiếu tiêu đề', 'Vui lòng nhập tên đề thi.', 'warning');
